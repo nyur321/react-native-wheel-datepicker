@@ -28,6 +28,8 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
 
     private final EventDispatcher mEventDispatcher;
     private List<Object> mValueData;
+    private int lineColor = 0xffff0000;
+    private Boolean cyclic = true;
 
     public ReactWheelCurvedPicker(ReactContext reactContext) {
         super(reactContext);
@@ -56,9 +58,9 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
         super.drawForeground(canvas);
 
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
+        paint.setColor(lineColor);
         int colorFrom = 0x00FFFFFF;//Color.BLACK;
-        int colorTo = Color.WHITE;
+        int colorTo = Color.BLACK;
         LinearGradient linearGradientShader = new LinearGradient(rectCurItem.left, rectCurItem.top, rectCurItem.right/2, rectCurItem.top, colorFrom, colorTo, Shader.TileMode.MIRROR);
         paint.setShader(linearGradientShader);
         canvas.drawLine(rectCurItem.left, rectCurItem.top, rectCurItem.right, rectCurItem.top, paint);
@@ -74,6 +76,14 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
 
     public void setValueData(List<Object> data) {
         mValueData = data;
+    }
+
+    public void setItemLineColor(Integer color) {
+        lineColor = color;
+    }
+
+    public void setCyclic(Boolean is_cyclic) {
+        cyclic = is_cyclic;
     }
 
     public int getState() {

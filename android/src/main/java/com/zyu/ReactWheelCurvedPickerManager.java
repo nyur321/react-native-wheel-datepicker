@@ -24,14 +24,17 @@ public class ReactWheelCurvedPickerManager extends SimpleViewManager<ReactWheelC
 
     private static final int DEFAULT_TEXT_SIZE = 25 * 2;
     private static final int DEFAULT_ITEM_SPACE = 14 * 2;
+    private static final boolean CYCLIC = true;
 
     @Override
     protected ReactWheelCurvedPicker createViewInstance(ThemedReactContext reactContext) {
         ReactWheelCurvedPicker picker = new ReactWheelCurvedPicker(reactContext);
         picker.setTextColor(Color.LTGRAY);
+        picker.setItemLineColor(Color.LTGRAY);
         picker.setCurrentTextColor(Color.WHITE);
         picker.setTextSize(DEFAULT_TEXT_SIZE);
         picker.setItemSpace(DEFAULT_ITEM_SPACE);
+        picker.setCyclic(CYCLIC);
 
         return picker;
     }
@@ -77,6 +80,20 @@ public class ReactWheelCurvedPickerManager extends SimpleViewManager<ReactWheelC
         if (picker != null) {
             picker.setCurrentTextColor(color);
             picker.setTextColor(color);
+        }
+    }
+
+    @ReactProp(name="itemLineColor", customType = "Color")
+    public void setItemLineColor(ReactWheelCurvedPicker picker, Integer color) {
+        if (picker != null) {
+            picker.setItemLineColor(color);
+        }
+    }
+
+    @ReactProp(name="cyclic")
+    public void setCyclic(ReactWheelCurvedPicker picker, boolean cyclic) {
+        if (picker != null) {
+            picker.setCyclic(cyclic);
         }
     }
 
