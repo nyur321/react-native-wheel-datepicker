@@ -25,6 +25,7 @@ public class ReactWheelCurvedPickerManager extends SimpleViewManager<ReactWheelC
     private static final int DEFAULT_TEXT_SIZE = 25 * 2;
     private static final int DEFAULT_ITEM_SPACE = 14 * 2;
     private static final boolean CYCLIC = true;
+    private static final boolean GRADIENT = false;
 
     @Override
     protected ReactWheelCurvedPicker createViewInstance(ThemedReactContext reactContext) {
@@ -35,23 +36,22 @@ public class ReactWheelCurvedPickerManager extends SimpleViewManager<ReactWheelC
         picker.setTextSize(DEFAULT_TEXT_SIZE);
         picker.setItemSpace(DEFAULT_ITEM_SPACE);
         picker.setCyclic(CYCLIC);
+        picker.setGradient(GRADIENT);
 
         return picker;
     }
 
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
-        return MapBuilder.of(
-                ItemSelectedEvent.EVENT_NAME, MapBuilder.of("registrationName", "onValueChange")
-        );
+        return MapBuilder.of(ItemSelectedEvent.EVENT_NAME, MapBuilder.of("registrationName", "onValueChange"));
     }
 
-    @ReactProp(name="data")
+    @ReactProp(name = "data")
     public void setData(ReactWheelCurvedPicker picker, ReadableArray items) {
         if (picker != null) {
             ArrayList<Object> valueData = new ArrayList<>();
             ArrayList<String> labelData = new ArrayList<>();
-            for (int i = 0; i < items.size(); i ++) {
+            for (int i = 0; i < items.size(); i++) {
                 ReadableMap itemMap = items.getMap(i);
 
                 if (itemMap.getType("value") == ReadableType.String) {
@@ -67,7 +67,7 @@ public class ReactWheelCurvedPickerManager extends SimpleViewManager<ReactWheelC
         }
     }
 
-    @ReactProp(name="selectedIndex")
+    @ReactProp(name = "selectedIndex")
     public void setSelectedIndex(ReactWheelCurvedPicker picker, int index) {
         if (picker != null && picker.getState() == AbstractWheelPicker.SCROLL_STATE_IDLE) {
             picker.setItemIndex(index);
@@ -75,7 +75,7 @@ public class ReactWheelCurvedPickerManager extends SimpleViewManager<ReactWheelC
         }
     }
 
-    @ReactProp(name="textColor", customType = "Color")
+    @ReactProp(name = "textColor", customType = "Color")
     public void setTextColor(ReactWheelCurvedPicker picker, Integer color) {
         if (picker != null) {
             picker.setCurrentTextColor(color);
@@ -83,28 +83,35 @@ public class ReactWheelCurvedPickerManager extends SimpleViewManager<ReactWheelC
         }
     }
 
-    @ReactProp(name="itemLineColor", customType = "Color")
+    @ReactProp(name = "itemLineColor", customType = "Color")
     public void setItemLineColor(ReactWheelCurvedPicker picker, Integer color) {
         if (picker != null) {
             picker.setItemLineColor(color);
         }
     }
 
-    @ReactProp(name="cyclic")
+    @ReactProp(name = "cyclic")
     public void setCyclic(ReactWheelCurvedPicker picker, boolean cyclic) {
         if (picker != null) {
             picker.setCyclic(cyclic);
         }
     }
 
-    @ReactProp(name="textSize")
+    @ReactProp(name = "gradient")
+    public void setGradient(ReactWheelCurvedPicker picker, boolean gradient) {
+        if (picker != null) {
+            picker.setGradient(gradient);
+        }
+    }
+
+    @ReactProp(name = "textSize")
     public void setTextSize(ReactWheelCurvedPicker picker, int size) {
         if (picker != null) {
             picker.setTextSize((int) PixelUtil.toPixelFromDIP(size));
         }
     }
 
-    @ReactProp(name="itemSpace")
+    @ReactProp(name = "itemSpace")
     public void setItemSpace(ReactWheelCurvedPicker picker, int space) {
         if (picker != null) {
             picker.setItemSpace((int) PixelUtil.toPixelFromDIP(space));

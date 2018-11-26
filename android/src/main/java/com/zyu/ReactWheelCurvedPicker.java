@@ -30,6 +30,7 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
     private List<Object> mValueData;
     private int lineColor = 0xffff0000;
     private Boolean cyclic = true;
+    private Boolean gradient = false;
 
     public ReactWheelCurvedPicker(ReactContext reactContext) {
         super(reactContext);
@@ -42,8 +43,7 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
             @Override
             public void onWheelSelected(int index, String data) {
                 if (mValueData != null && index < mValueData.size()) {
-                    mEventDispatcher.dispatchEvent(
-                            new ItemSelectedEvent(getId(), mValueData.get(index)));
+                    mEventDispatcher.dispatchEvent(new ItemSelectedEvent(getId(), mValueData.get(index)));
                 }
             }
 
@@ -59,10 +59,13 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
 
         Paint paint = new Paint();
         paint.setColor(lineColor);
-        int colorFrom = 0x00FFFFFF;//Color.BLACK;
-        int colorTo = Color.BLACK;
-        LinearGradient linearGradientShader = new LinearGradient(rectCurItem.left, rectCurItem.top, rectCurItem.right/2, rectCurItem.top, colorFrom, colorTo, Shader.TileMode.MIRROR);
-        paint.setShader(linearGradientShader);
+        int colorFrom = 0x00FFFFFF;// Color.BLACK;
+        int colorTo = lineColor;
+        LinearGradient linearGradientShader = new LinearGradient(rectCurItem.left, rectCurItem.top,
+                rectCurItem.right / 2, rectCurItem.top, colorFrom, colorTo, Shader.TileMode.MIRROR);
+        if (gradient) {
+            paint.setShader(linearGradientShader);
+        }
         canvas.drawLine(rectCurItem.left, rectCurItem.top, rectCurItem.right, rectCurItem.top, paint);
         canvas.drawLine(rectCurItem.left, rectCurItem.bottom, rectCurItem.right, rectCurItem.bottom, paint);
     }
@@ -71,7 +74,7 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
     public void setItemIndex(int index) {
         super.setItemIndex(index);
         unitDeltaTotal = 0;
-		mHandler.post(this);
+        mHandler.post(this);
     }
 
     public void setValueData(List<Object> data) {
@@ -84,6 +87,10 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
 
     public void setCyclic(Boolean is_cyclic) {
         cyclic = is_cyclic;
+    }
+
+    public void setGradient(Boolean is_gradient) {
+        gradient = is_gradient;
     }
 
     public int getState() {

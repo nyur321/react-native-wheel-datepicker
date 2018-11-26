@@ -1,10 +1,15 @@
 import React, { PureComponent } from 'react';
-import { ColorPropType, requireNativeComponent, View, ViewPropTypes as RNViewPropTypes } from 'react-native';
+import {
+  ColorPropType,
+  requireNativeComponent,
+  View,
+  ViewPropTypes as RNViewPropTypes,
+} from 'react-native';
 import PropTypes from 'prop-types';
 
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
 
-const stateFromProps = (props) => {
+const stateFromProps = props => {
   let selectedIndex = 0;
 
   const items = props.children.map(({ props: { value, label } }, index) => {
@@ -22,7 +27,10 @@ class WheelCurvedPicker extends PureComponent {
   static propTypes = {
     ...ViewPropTypes,
     data: PropTypes.array,
+    cyclic: PropTypes.bool,
+    gradient: PropTypes.bool,
     textColor: ColorPropType,
+    itemLineColor: ColorPropType,
     textSize: PropTypes.number,
     itemSpace: PropTypes.number,
     onValueChange: PropTypes.func.isRequired,
@@ -32,8 +40,11 @@ class WheelCurvedPicker extends PureComponent {
 
   static defaultProps = {
     textSize: 26,
+    cyclic: true,
+    gradient: true,
     itemSpace: 20,
     textColor: '#333',
+    itemLineColor: '#333',
   };
 
   onValueChange = ({ nativeEvent: { data } }) => this.props.onValueChange(data);
@@ -72,6 +83,9 @@ class Item extends PureComponent {
 
 WheelCurvedPicker.Item = Item;
 
-const WheelCurvedPickerNative = requireNativeComponent('WheelCurvedPicker', WheelCurvedPicker);
+const WheelCurvedPickerNative = requireNativeComponent(
+  'WheelCurvedPicker',
+  WheelCurvedPicker,
+);
 
 export default WheelCurvedPicker;
