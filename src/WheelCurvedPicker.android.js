@@ -30,6 +30,7 @@ class WheelCurvedPicker extends PureComponent {
     cyclic: PropTypes.bool,
     gradient: PropTypes.bool,
     textColor: ColorPropType,
+    selectedTextColor: ColorPropType,
     itemLineColor: ColorPropType,
     textSize: PropTypes.number,
     itemSpace: PropTypes.number,
@@ -44,6 +45,7 @@ class WheelCurvedPicker extends PureComponent {
     gradient: true,
     itemSpace: 20,
     textColor: '#333',
+    selectedTextColor: '#000',
     itemLineColor: '#333',
   };
 

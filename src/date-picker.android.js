@@ -37,6 +37,7 @@ export default class DatePicker extends PureComponent {
     onDateChange: PropTypes.func.isRequired,
     style: ViewPropTypes.style,
     textColor: ColorPropType,
+    selectedTextColor: ColorPropType,
     textSize: PropTypes.number,
     itemSpace: PropTypes.number,
   };
@@ -50,6 +51,7 @@ export default class DatePicker extends PureComponent {
     date: new Date(),
     style: null,
     textColor: '#333',
+    selectedTextColor: '#000',
     textSize: 26,
     itemSpace: 20,
   };

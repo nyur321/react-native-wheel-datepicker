@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
 export default class Picker extends Component {
   static propTypes = {
     textColor: ColorPropType,
+    selectedTextColor: ColorPropType,
     itemLineColor: ColorPropType,
     textSize: PropTypes.number,
     gradient: PropTypes.bool,
@@ -56,6 +57,7 @@ export default class Picker extends Component {
 
   static defaultProps = {
     textColor: '#333',
+    selectedTextColor: '#000',
     gradient: true,
     itemLineColor: '#333',
     textSize: 26,
